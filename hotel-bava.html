@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hotel Bava - ஹோட்டல் பாவா | Premium Veg & Non-Veg Restaurant in Salem." />
+  <title>ஹோட்டல் பாவா | Hotel Bava – Salem</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --maroon:#6b0f1a; --maroon-dark:#4a0a12; --maroon-deep:#2e0609; --maroon-light:#8b1a2a;
+  --gold:#c9933a; --gold-light:#e8b86d; --gold-pale:#f5e6c8; --gold-shine:#fff3d0;
+  --cream:#fdf8f0; --white:#ffffff; --text-dark:#1a1008; --text-mid:#5a3a20; --text-light:#9e7a50;
+  --shadow-sm:0 2px 12px rgba(107,15,26,.12); --shadow-md:0 6px 30px rgba(107,15,26,.2);
+  --shadow-lg:0 16px 60px rgba(107,15,26,.28); --shadow-gold:0 8px 32px rgba(201,147,58,.4);
+  --font-display:'Cormorant Garamond',serif; --font-tamil:'Noto Sans Tamil',serif;
+  --font-heading:'Playfair Display',serif;
+  --radius:14px; --radius-lg:22px;
+  --ease:cubic-bezier(.4,0,.2,1); --ease-spring:cubic-bezier(.34,1.56,.64,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-tamil);background:var(--cream);color:var(--text-dark);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* Custom Cursor */
+/* .cursor-dot{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+.cursor-ring{position:fixed;width:32px;height:32px;border:2px solid rgba(201,147,58,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s} */
+
+/* Buttons */
+.btn{display:inline-block;padding:14px 32px;border-radius:50px;font-family:var(--font-display);font-size:1rem;font-weight:600;letter-spacing:.07em;cursor:pointer;border:2px solid transparent;transition:all .35s var(--ease-spring);text-align:center;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);transform:translateX(-100%);transition:transform .5s}
+.btn:hover::after{transform:translateX(100%)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--maroon-dark);border-color:var(--gold);box-shadow:0 4px 20px rgba(201,147,58,.4)}
+.btn-gold:hover{transform:translateY(-3px) scale(1.03);box-shadow:var(--shadow-gold)}
+.btn-outline{background:transparent;color:var(--white);border-color:rgba(255,255,255,.6);backdrop-filter:blur(4px)}
+.btn-outline:hover{background:rgba(255,255,255,.15);border-color:var(--white);transform:translateY(-3px) scale(1.03)}
+
+/* Section Headers */
+.section-header{text-align:center;padding:70px 20px 44px}
+.section-header.light .section-label,.section-header.light .section-title{color:var(--white)}
+.section-header.light .section-title span{color:var(--gold-light)}
+.section-header.light .divider-line{background:var(--gold-light)}
+.section-label{font-family:var(--font-display);font-size:.82rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;animation:labelGlow 3s ease-in-out infinite alternate}
+@keyframes labelGlow{from{text-shadow:none}to{text-shadow:0 0 14px rgba(201,147,58,.55)}}
+.section-title{font-family:var(--font-heading);font-size:clamp(1.9rem,4vw,3rem);color:var(--maroon);line-height:1.2;font-weight:700}
+.section-title span{display:block;font-style:italic;font-size:58%;font-weight:500;color:var(--text-light);margin-top:5px}
+.divider-line{width:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold));margin:18px auto 0;border-radius:2px;transition:width 1.1s var(--ease)}
+.divider-line.expanded{width:80px}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.12s}.delay-2{transition-delay:.24s}.delay-3{transition-delay:.36s}.delay-4{transition-delay:.48s}
+
+/* ---- PARTICLES ---- */
+#particleCanvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4}
+
+/* ---- HEADER ---- */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(74,10,18,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,147,58,.2);transition:all .3s var(--ease)}
+.site-header.scrolled{background:rgba(46,6,9,.97);box-shadow:0 4px 30px rgba(0,0,0,.5)}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo-wrap{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.logo-emblem{width:44px;height:44px;flex-shrink:0;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-tamil);font-size:.85rem;font-weight:700;color:var(--maroon-dark);animation:emblemPulse 4s ease-in-out infinite}
+@keyframes emblemPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,147,58,.4)}50%{box-shadow:0 0 0 8px rgba(201,147,58,0)}}
+.logo-text{display:flex;flex-direction:column;line-height:1.15}
+.logo-main{font-family:var(--font-tamil);font-size:1rem;font-weight:700;color:var(--gold-light)}
+.logo-sub{font-family:var(--font-display);font-size:.73rem;letter-spacing:.12em;color:rgba(255,255,255,.5)}
+.main-nav{display:flex;align-items:center;gap:30px}
+.main-nav a{font-family:var(--font-display);font-size:.95rem;letter-spacing:.07em;color:rgba(255,255,255,.78);transition:color .25s;position:relative;padding-bottom:4px}
+.main-nav a::after{content:'';position:absolute;bottom:0;left:50%;right:50%;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;transition:left .3s var(--ease),right .3s var(--ease)}
+.main-nav a:hover{color:var(--gold-light)}.main-nav a:hover::after{left:0;right:0}
+.cart-btn{position:relative;background:linear-gradient(135deg,var(--gold),var(--gold-light));border:none;border-radius:50px;padding:9px 20px;font-family:var(--font-display);font-size:.88rem;font-weight:700;color:var(--maroon-dark);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .3s var(--ease-spring);flex-shrink:0}
+.cart-btn:hover{transform:translateY(-2px) scale(1.04);box-shadow:var(--shadow-gold)}
+.cart-badge{background:var(--maroon-dark);color:var(--gold-light);width:22px;height:22px;border-radius:50%;font-size:.72rem;display:flex;align-items:center;justify-content:center;font-weight:700}
+.cart-badge.bump{animation:badgeBump .35s var(--ease-spring)}
+@keyframes badgeBump{0%,100%{transform:scale(1)}50%{transform:scale(1.6)}}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+.nav-toggle span{display:block;width:24px;height:2px;background:var(--gold-light);border-radius:2px;transition:.3s var(--ease)}
+
+/* ---- HERO ---- */
+.hero{min-height:100svh;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:68px}
+.hero-bg{position:absolute;inset:0;z-index:0;background-image:url('hero.webp');background-size:cover;background-position:center;transform:scale(1.08);animation:heroZoom 14s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1.15)}}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(46,6,9,.92) 0%,rgba(107,15,26,.78) 50%,rgba(20,3,6,.88) 100%)}
+.hero-pattern{position:absolute;inset:0;z-index:2;opacity:.05;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:28px 28px}
+.hero-ring{position:absolute;border-radius:50%;border:1px solid rgba(201,147,58,.12);animation:ringPulse 6s ease-in-out infinite;pointer-events:none;z-index:2}
+.hero-ring-1{width:440px;height:440px;top:-80px;right:-100px;animation-delay:0s}
+.hero-ring-2{width:270px;height:270px;bottom:-60px;left:-60px;animation-delay:2s}
+.hero-ring-3{width:180px;height:180px;top:38%;left:6%;animation-delay:4s;border-color:rgba(201,147,58,.07)}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.07);opacity:1}}
+.hero-float{position:absolute;z-index:2;font-size:1.7rem;animation:floatDrift 8s ease-in-out infinite;opacity:.16;pointer-events:none}
+.hf1{top:18%;left:6%;animation-delay:0s}.hf2{top:65%;left:4%;animation-delay:1.5s;font-size:1.2rem}
+.hf3{top:20%;right:7%;animation-delay:3s}.hf4{top:70%;right:5%;animation-delay:4.5s}
+.hf5{top:42%;left:2%;animation-delay:2s;font-size:1rem}
+@keyframes floatDrift{0%,100%{transform:translateY(0) rotate(0deg)}33%{transform:translateY(-18px) rotate(8deg)}66%{transform:translateY(10px) rotate(-6deg)}}
+.hero-shimmer{position:absolute;bottom:0;left:0;right:0;height:2px;z-index:3;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent);background-size:200% 100%;animation:shimmerLine 3s linear infinite}
+@keyframes shimmerLine{from{background-position:200% 0}to{background-position:-200% 0}}
+
+.hero-content{position:relative;z-index:3;text-align:center;padding:40px 20px;max-width:720px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 24px;border:1px solid rgba(201,147,58,.5);border-radius:50px;font-family:var(--font-tamil);font-size:.85rem;letter-spacing:.1em;color:var(--gold-light);margin-bottom:22px;background:rgba(201,147,58,.08);backdrop-filter:blur(8px);animation:badgeGlow 3s ease-in-out infinite alternate}
+@keyframes badgeGlow{from{box-shadow:0 0 0 rgba(201,147,58,0)}to{box-shadow:0 0 22px rgba(201,147,58,.35)}}
+.hero-badge::before,.hero-badge::after{content:'✦';font-size:.65rem;color:var(--gold);animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-title{font-family:var(--font-tamil);font-size:clamp(3rem,9vw,5.5rem);font-weight:700;color:var(--white);line-height:1.05;margin-bottom:8px;text-shadow:0 4px 30px rgba(0,0,0,.5);animation:heroReveal 1.2s var(--ease) both}
+.hero-english{font-family:var(--font-heading);font-size:clamp(1.3rem,3vw,2.1rem);font-style:italic;color:var(--gold-light);margin-bottom:10px;animation:heroReveal 1.2s .2s var(--ease) both}
+.hero-tagline{font-family:var(--font-display);font-size:1rem;letter-spacing:.12em;color:rgba(255,255,255,.6);margin-bottom:38px;animation:heroReveal 1.2s .4s var(--ease) both}
+.hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:heroReveal 1.2s .6s var(--ease) both}
+@keyframes heroReveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-stats{display:flex;gap:24px;justify-content:center;margin-top:46px;flex-wrap:wrap;animation:heroReveal 1.2s .8s var(--ease) both}
+.hero-stat{text-align:center;padding:14px 20px;border:1px solid rgba(201,147,58,.2);border-radius:14px;background:rgba(255,255,255,.05);backdrop-filter:blur(8px);min-width:90px;transition:all .3s var(--ease-spring)}
+.hero-stat:hover{border-color:rgba(201,147,58,.5);background:rgba(255,255,255,.1);transform:translateY(-3px)}
+.hero-stat-num{font-family:var(--font-heading);font-size:1.8rem;font-weight:700;color:var(--gold-light);line-height:1;display:block}
+.hero-stat-label{font-family:var(--font-display);font-size:.72rem;letter-spacing:.1em;color:rgba(255,255,255,.5);margin-top:4px;display:block}
+.hero-scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:3}
+.scroll-mouse{width:24px;height:38px;border:2px solid rgba(255,255,255,.4);border-radius:12px;position:relative}
+.scroll-mouse::before{content:'';position:absolute;top:6px;left:50%;transform:translateX(-50%);width:4px;height:8px;background:var(--gold);border-radius:2px;animation:mouseScroll 2s ease-in-out infinite}
+@keyframes mouseScroll{0%{opacity:1;transform:translateX(-50%) translateY(0)}100%{opacity:0;transform:translateX(-50%) translateY(14px)}}
+.scroll-text{font-family:var(--font-display);font-size:.7rem;letter-spacing:.18em;color:rgba(255,255,255,.45)}
+
+/* ---- MARQUEE ---- */
+.marquee-strip{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 50%,var(--gold) 100%);padding:13px 0;overflow:hidden;position:relative;z-index:5}
+.marquee-track{display:flex;animation:marqueeRoll 24s linear infinite;white-space:nowrap;width:max-content}
+.marquee-track:hover{animation-play-state:paused}
+.marquee-item{font-family:var(--font-display);font-size:.88rem;font-weight:700;letter-spacing:.12em;color:var(--maroon-dark);padding:0 28px;display:inline-flex;align-items:center;gap:12px}
+.marquee-dot{color:var(--maroon);font-size:.65rem}
+@keyframes marqueeRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---- CATERING ---- */
+.catering-section{background:linear-gradient(135deg,var(--maroon-deep) 0%,var(--maroon) 40%,#8b2010 100%);position:relative;overflow:hidden;padding:80px 20px;text-align:center}
+.catering-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(201,147,58,.18) 0%,transparent 55%),radial-gradient(ellipse at 85% 50%,rgba(201,147,58,.12) 0%,transparent 55%)}
+.catering-mandala{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;opacity:.04;animation:mandalaSpin 40s linear infinite;pointer-events:none}
+@keyframes mandalaSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.catering-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.catering-ornament{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:18px}
+.ornament-line{flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.ornament-line.rev{background:linear-gradient(90deg,var(--gold),transparent)}
+.ornament-icon{font-size:1.5rem;color:var(--gold);animation:rotateDeco 8s linear infinite;display:inline-block}
+@keyframes rotateDeco{to{transform:rotate(360deg)}}
+.catering-label{font-family:var(--font-display);font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light);margin-bottom:18px}
+.catering-title{font-family:var(--font-tamil);font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;color:var(--white);margin-bottom:14px;line-height:1.3}
+.catering-desc{font-family:var(--font-tamil);font-size:clamp(1rem,2.5vw,1.3rem);color:var(--gold-light);margin-bottom:14px;font-weight:600}
+.catering-eng{font-family:var(--font-display);font-size:1.05rem;color:rgba(255,255,255,.7);margin-bottom:28px;line-height:1.7}
+.catering-chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.chip{padding:7px 18px;border-radius:50px;border:1px solid rgba(201,147,58,.35);font-family:var(--font-display);font-size:.82rem;color:rgba(255,255,255,.75);background:rgba(255,255,255,.06);transition:.3s var(--ease)}
+.chip:hover{background:rgba(201,147,58,.15);border-color:var(--gold);color:var(--gold-light)}
+
+/* ---- MENU ---- */
+.menu-section{background:var(--cream);padding-bottom:80px;position:relative}
+.menu-section::before{content:'';display:block;height:55px;background:linear-gradient(180deg,#4a0a12 0%,var(--cream) 100%);clip-path:ellipse(55% 100% at 50% 0%)}
+.menu-filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:0 20px 44px}
+.filter-btn{padding:10px 24px;border-radius:50px;border:2px solid var(--maroon);background:transparent;color:var(--maroon);font-family:var(--font-display);font-size:.9rem;font-weight:600;letter-spacing:.05em;cursor:pointer;transition:all .3s var(--ease-spring);position:relative;overflow:hidden;z-index:0}
+.filter-btn::before{content:'';position:absolute;inset:0;background:var(--maroon);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);z-index:-1}
+.filter-btn:hover::before,.filter-btn.active::before{transform:scaleX(1)}
+.filter-btn.active,.filter-btn:hover{color:var(--gold-light);border-color:var(--maroon)}
+.menu-category{max-width:1100px;margin:0 auto 56px;padding:0 20px}
+.menu-category.hidden{display:none}
+.cat-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding:20px 26px;background:linear-gradient(135deg,var(--maroon) 0%,var(--maroon-light) 100%);border-radius:var(--radius);box-shadow:var(--shadow-md);position:relative;overflow:hidden}
+.cat-header::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 60%,rgba(255,255,255,.06))}
+.cat-icon{font-size:2.2rem;flex-shrink:0;animation:iconWiggle 3.5s ease-in-out infinite}
+@keyframes iconWiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+.cat-title{font-family:var(--font-tamil);font-size:1.28rem;font-weight:700;color:var(--white)}
+.cat-subtitle{font-family:var(--font-display);font-size:.84rem;color:var(--gold-light);letter-spacing:.08em}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.menu-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid rgba(201,147,58,.15);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .35s var(--ease-spring),box-shadow .35s var(--ease);opacity:0;transform:translateY(20px);cursor:pointer}
+.menu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold));background-size:200%;opacity:0;transition:opacity .3s;animation:shimmerBar 2s linear infinite paused}
+.menu-card:hover{transform:translateY(-6px) scale(1.02)!important;box-shadow:var(--shadow-md)}
+.menu-card:hover::before{opacity:1;animation-play-state:running}
+@keyframes shimmerBar{from{background-position:200% 0}to{background-position:-200% 0}}
+.card-img-wrap{position:relative;width:100%;height:135px;overflow:hidden;background:linear-gradient(135deg,#f5e6c8,#edd5a3);flex-shrink:0}
+.card-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .55s var(--ease)}
+.menu-card:hover .card-img-wrap img{transform:scale(1.1)}
+.card-img-wrap::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transform:translateX(-100%);animation:imgShimmer 1.4s ease .2s 1 forwards}
+@keyframes imgShimmer{to{transform:translateX(100%);opacity:0}}
+.veg-dot{width:13px;height:13px;border-radius:3px;border:2px solid;position:absolute;top:8px;right:8px;z-index:2;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.veg-dot.veg{border-color:#1b5e20;background:#4caf50}
+.veg-dot.nonveg{border-color:#7f0000;background:#f44336}
+.card-body{padding:12px 13px 8px;display:flex;flex-direction:column;gap:3px;flex:1}
+.item-tamil{font-family:var(--font-tamil);font-size:.9rem;font-weight:600;color:var(--maroon);line-height:1.35}
+.item-eng{font-family:var(--font-display);font-size:.78rem;color:var(--text-light);font-style:italic}
+.add-btn{display:block;width:calc(100% - 24px);margin:0 12px 12px;padding:9px 12px;border-radius:50px;border:2px solid var(--gold);background:transparent;color:var(--maroon);font-family:var(--font-display);font-size:.83rem;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .3s var(--ease-spring);text-align:center;position:relative;overflow:hidden;z-index:0}
+.add-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold),var(--gold-light));transform:scaleX(0);transform-origin:left;transition:.3s var(--ease);z-index:-1}
+.add-btn:hover{color:var(--maroon-dark);border-color:var(--gold)}.add-btn:hover::before{transform:scaleX(1)}
+.add-btn:active{transform:scale(.96)}
+.add-btn.added{background:linear-gradient(135deg,var(--maroon),var(--maroon-light));color:var(--gold-light);border-color:var(--maroon)}
+.add-btn.added::before{display:none}
+
+/* ---- CART ---- */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1999;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(3px)}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:95vw;background:var(--white);z-index:2000;transform:translateX(100%);transition:transform .38s var(--ease);display:flex;flex-direction:column;box-shadow:-12px 0 50px rgba(0,0,0,.3)}
+.cart-drawer.open{transform:translateX(0)}
+.drawer-header{background:linear-gradient(135deg,var(--maroon-deep),var(--maroon));padding:22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:2px solid rgba(201,147,58,.2)}
+.drawer-title{font-family:var(--font-heading);font-size:1.3rem;font-weight:700;color:var(--gold-light);display:flex;align-items:center;gap:10px}
+.drawer-close{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:var(--white);width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;transition:all .3s var(--ease);display:flex;align-items:center;justify-content:center}
+.drawer-close:hover{background:rgba(255,255,255,.25);transform:rotate(90deg)}
+.drawer-body{flex:1;overflow-y:auto;padding:0}
+.drawer-body::-webkit-scrollbar{width:4px}.drawer-body::-webkit-scrollbar-thumb{background:var(--gold-pale);border-radius:2px}
+.cart-empty{text-align:center;padding:70px 30px}
+.cart-empty-icon{font-size:4rem;margin-bottom:16px;opacity:.5;animation:emptyBounce 2s ease-in-out infinite}
+@keyframes emptyBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.cart-empty p{font-family:var(--font-display);font-size:1.05rem;color:var(--text-light)}
+.cart-item{display:flex;align-items:flex-start;gap:13px;padding:14px 18px;border-bottom:1px solid rgba(201,147,58,.1);transition:background .25s;animation:cartItemIn .3s var(--ease-spring) both}
+@keyframes cartItemIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.cart-item:hover{background:#fdf8f0}
+.cart-item-img{width:58px;height:58px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--gold-pale);box-shadow:var(--shadow-sm)}
+.cart-item-img img{width:100%;height:100%;object-fit:cover}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-family:var(--font-tamil);font-size:.88rem;font-weight:600;color:var(--maroon)}
+.cart-item-eng{font-family:var(--font-display);font-size:.76rem;color:var(--text-light);font-style:italic}
+.cart-item-controls{display:flex;align-items:center;gap:8px;margin-top:7px}
+.qty-btn{width:28px;height:28px;border-radius:50%;border:2px solid var(--maroon);background:transparent;color:var(--maroon);font-size:1rem;font-weight:700;cursor:pointer;transition:all .25s var(--ease-spring);display:flex;align-items:center;justify-content:center;line-height:1}
+.qty-btn:hover{background:var(--maroon);color:var(--white);transform:scale(1.1)}.qty-btn:active{transform:scale(.9)}
+.qty-value{font-family:var(--font-heading);font-size:.95rem;font-weight:700;color:var(--text-dark);min-width:24px;text-align:center}
+.remove-btn{background:none;border:none;color:#cc4444;cursor:pointer;font-size:.9rem;padding:3px 5px;transition:.25s;margin-left:4px}
+.remove-btn:hover{color:#991111;transform:scale(1.2) rotate(10deg)}
+.cart-footer{border-top:2px solid rgba(201,147,58,.2);padding:18px 20px;background:var(--cream);flex-shrink:0}
+.cart-actions{display:flex;flex-direction:column;gap:10px}
+.btn-whatsapp{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px 20px;background:#25d366;color:white;border:none;border-radius:50px;font-family:var(--font-display);font-size:1rem;font-weight:700;cursor:pointer;transition:all .3s var(--ease-spring);letter-spacing:.05em}
+.btn-whatsapp:hover{background:#1db954;transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,.45)}
+.btn-clear{padding:10px;background:transparent;color:var(--text-light);border:1px solid rgba(0,0,0,.1);border-radius:50px;font-family:var(--font-display);font-size:.85rem;cursor:pointer;transition:.25s}
+.btn-clear:hover{color:#cc4444;border-color:#cc4444}
+
+/* Toast */
+.toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(16px);background:linear-gradient(135deg,var(--maroon-deep),var(--maroon));color:var(--gold-light);padding:12px 26px;border-radius:50px;font-family:var(--font-display);font-size:.9rem;letter-spacing:.04em;z-index:3000;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s var(--ease-spring);border:1px solid rgba(201,147,58,.35);box-shadow:0 8px 30px rgba(107,15,26,.4);white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---- BRANCHES ---- */
+.branches-section{background:linear-gradient(160deg,var(--maroon-deep) 0%,var(--maroon) 100%);padding-bottom:80px;position:relative;overflow:hidden}
+.branches-section::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(-45deg,rgba(201,147,58,.04) 0,rgba(201,147,58,.04) 1px,transparent 0,transparent 50%);background-size:24px 24px}
+.branches-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;max-width:1000px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.branch-card{background:rgba(255,255,255,.06);border:1px solid rgba(201,147,58,.22);border-radius:var(--radius-lg);overflow:hidden;transition:all .4s var(--ease-spring)}
+.branch-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:0 20px 50px rgba(0,0,0,.4);border-color:rgba(201,147,58,.5)}
+.branch-badge{display:inline-block;margin:18px 18px 0;padding:5px 16px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--maroon-dark);border-radius:50px;font-family:var(--font-display);font-size:.78rem;font-weight:700;letter-spacing:.1em}
+.branch-name{display:flex;align-items:flex-start;gap:10px;padding:12px 18px 14px}
+.branch-pin{font-size:1.5rem;margin-top:2px;animation:pinBounce 2s ease-in-out infinite}
+@keyframes pinBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.branch-name h3{font-family:var(--font-heading);font-size:1.22rem;color:var(--white);font-weight:700}
+.branch-name p{font-family:var(--font-display);font-size:.82rem;color:var(--gold-light);letter-spacing:.05em}
+.map-container{overflow:hidden}.map-container iframe{display:block;filter:sepia(20%) contrast(1.05)}
+.map-btn{display:block;margin:14px 18px 18px;text-align:center}
+
+/* ---- CONTACT ---- */
+.contact-section{background:var(--cream);padding-bottom:80px;position:relative;overflow:hidden}
+.contact-section::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(201,147,58,.06) 0%,transparent 70%);pointer-events:none}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:900px;margin:0 auto;padding:0 20px}
+.contact-card{background:var(--white);border-radius:var(--radius-lg);padding:34px 24px;text-align:center;box-shadow:var(--shadow-sm);border:1px solid rgba(201,147,58,.12);transition:all .35s var(--ease-spring);position:relative;overflow:hidden}
+.contact-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--gold));transform:scaleX(0);transform-origin:center;transition:.4s var(--ease)}
+.contact-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}.contact-card:hover::before{transform:scaleX(1)}
+.contact-icon{font-size:2.4rem;margin-bottom:14px;display:inline-block;transition:.3s var(--ease-spring)}
+.contact-card:hover .contact-icon{transform:scale(1.2) rotate(-5deg)}
+.contact-card h4{font-family:var(--font-heading);font-size:1.05rem;color:var(--maroon);margin-bottom:14px}
+.contact-phone{display:block;font-family:var(--font-heading);font-size:1rem;font-weight:700;color:var(--white);background:linear-gradient(135deg,var(--maroon),var(--maroon-light));border:1px solid rgba(201,147,58,.3);border-radius:50px;padding:11px 20px;margin-bottom:9px;letter-spacing:.07em;transition:all .3s var(--ease-spring);box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.contact-phone::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.12),transparent);transform:translateX(-100%);transition:.4s}
+.contact-phone:hover::after{transform:translateX(100%)}
+.contact-phone:hover{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--maroon-dark);transform:translateY(-2px);box-shadow:var(--shadow-gold)}
+.hours-text{font-family:var(--font-display);font-size:.9rem;color:var(--text-light);margin-bottom:5px}
+.hours-time{font-family:var(--font-heading);font-size:1.2rem;font-weight:700;color:var(--maroon)}
+
+/* ---- FOOTER ---- */
+.site-footer{background:var(--maroon-deep);border-top:1px solid rgba(201,147,58,.2);padding:44px 20px 32px;position:relative;overflow:hidden}
+.site-footer::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-light),var(--gold),transparent);background-size:200%;animation:shimmerLine 4s linear infinite}
+.footer-inner{max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center}
+.footer-name{font-family:var(--font-tamil);font-size:1.15rem;font-weight:700;color:var(--gold-light)}
+.footer-tagline{font-family:var(--font-display);font-size:.76rem;color:rgba(255,255,255,.45);letter-spacing:.07em}
+.footer-links{display:flex;gap:26px;flex-wrap:wrap;justify-content:center}
+.footer-links a{font-family:var(--font-display);font-size:.88rem;color:rgba(255,255,255,.55);letter-spacing:.05em;transition:.25s;position:relative}
+.footer-links a::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:.25s}
+.footer-links a:hover{color:var(--gold-light)}.footer-links a:hover::after{transform:scaleX(1)}
+.footer-copy{font-family:var(--font-display);font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.05em}
+
+/* ---- FAB ---- */
+.whatsapp-fab{position:fixed;bottom:26px;right:26px;z-index:999;width:60px;height:60px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(37,211,102,.5);transition:all .3s var(--ease-spring);cursor:pointer}
+.whatsapp-fab::before,.whatsapp-fab::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(37,211,102,.3);animation:fabRing 2.5s ease-out infinite}
+.whatsapp-fab::after{animation-delay:1.25s}
+@keyframes fabRing{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.6);opacity:0}}
+.whatsapp-fab:hover{transform:scale(1.12) translateY(-3px);box-shadow:0 10px 36px rgba(37,211,102,.6)}
+.fab-tooltip{position:absolute;right:72px;white-space:nowrap;background:var(--maroon-deep);color:var(--white);font-family:var(--font-display);font-size:.8rem;padding:7px 14px;border-radius:8px;pointer-events:none;opacity:0;transform:translateX(8px);transition:.25s;border:1px solid rgba(201,147,58,.2)}
+.fab-tooltip::after{content:'';position:absolute;top:50%;right:-5px;transform:translateY(-50%);border:5px solid transparent;border-right-width:0;border-left-color:var(--maroon-deep)}
+.whatsapp-fab:hover .fab-tooltip{opacity:1;transform:translateX(0)}
+.back-to-top{position:fixed;bottom:96px;right:26px;z-index:999;width:42px;height:42px;background:linear-gradient(135deg,var(--maroon),var(--maroon-light));border:1px solid var(--gold);color:var(--gold-light);font-size:1.1rem;font-weight:700;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(12px);transition:all .35s var(--ease-spring);pointer-events:none;box-shadow:var(--shadow-sm)}
+.back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:all}
+.back-to-top:hover{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--maroon-dark);transform:translateY(-3px)}
+
+/* ---- RESPONSIVE ---- */
+@media(max-width:700px){
+  .nav-toggle{display:flex}
+  .main-nav{position:fixed;top:68px;left:0;right:0;background:var(--maroon-dark);flex-direction:column;padding:22px;gap:22px;transform:translateY(-120%);opacity:0;transition:.3s var(--ease);border-bottom:2px solid var(--gold);z-index:999}
+  .main-nav.open{transform:translateY(0);opacity:1}
+  .main-nav a{font-size:1.1rem}
+  .cart-btn .cart-label{display:none}
+  .hero-stats{gap:12px}
+  .cursor-dot,.cursor-ring{display:none}
+}
+@media(max-width:480px){
+  .menu-grid{grid-template-columns:1fr 1fr}
+  .hero-cta{flex-direction:column;align-items:center}
+  .btn{width:220px}
+  .contact-grid{grid-template-columns:1fr}
+  .branches-grid{grid-template-columns:1fr}
+  .filter-btn{font-size:.8rem;padding:7px 16px}
+  .card-img-wrap{height:105px}
+}
+@media(min-width:769px){.menu-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:1100px){.menu-grid{grid-template-columns:repeat(4,1fr)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<canvas id="particleCanvas"></canvas>
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="drawer-header">
+    <div class="drawer-title">🛒 உங்கள் ஆர்டர் / Your Order</div>
+    <button class="drawer-close" id="cartClose">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-actions">
+      <button class="btn-whatsapp" id="orderWhatsapp">
+        <svg viewBox="0 0 32 32" fill="white" width="22" height="22"><path d="M16.003 2.667C8.638 2.667 2.667 8.638 2.667 16c0 2.336.627 4.593 1.817 6.564L2.667 29.333l6.954-1.78A13.27 13.27 0 0016.003 29.333c7.365 0 13.33-5.971 13.33-13.333 0-7.362-5.965-13.333-13.33-13.333zm0 24c-2.01 0-3.981-.527-5.714-1.522l-.41-.24-4.124 1.056 1.093-3.984-.265-.428A10.633 10.633 0 015.333 16c0-5.882 4.788-10.667 10.67-10.667 5.882 0 10.664 4.785 10.664 10.667S21.885 26.667 16.003 26.667zm5.847-7.988c-.32-.16-1.893-.933-2.186-1.04-.293-.107-.506-.16-.72.16s-.826 1.04-1.013 1.253c-.187.214-.373.24-.693.08-.32-.16-1.35-.497-2.572-1.586-.95-.848-1.59-1.895-1.776-2.215-.187-.32-.02-.493.14-.652.144-.143.32-.373.48-.56.16-.186.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.733-.986-2.373-.26-.624-.524-.54-.72-.55l-.613-.01a1.18 1.18 0 00-.853.4c-.293.32-1.12 1.093-1.12 2.666s1.147 3.094 1.307 3.307c.16.213 2.254 3.44 5.463 4.826.764.33 1.36.526 1.824.674.766.243 1.464.209 2.016.127.615-.091 1.893-.773 2.16-1.52.266-.747.266-1.387.186-1.52-.08-.134-.293-.214-.614-.374z"/></svg>
+        Order via WhatsApp 
+        <!-- மூலம் ஆர்டர் -->
+      </button>
+      <button class="btn-clear" onclick="clearCart()">🗑 Clear Cart</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <!-- <div class="logo-emblem">பா</div> -->
+      <div class="logo-text">
+        <span class="logo-main">ஹோட்டல் பாவா</span>
+        <span class="logo-sub">Hotel Bava · Salem</span>
+      </div>
+    </div>
+    <nav class="main-nav" id="main-nav">
+      <a href="#menu">Menu</a>
+      <a href="#catering">Catering</a>
+      <a href="#branches">Branches</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="cart-btn" id="cartOpenBtn">
+      🛒 <span class="cart-label">Cart</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-ring hero-ring-1"></div>
+  <div class="hero-ring hero-ring-2"></div>
+  <div class="hero-ring hero-ring-3"></div>
+  <div class="hero-shimmer"></div>
+  <div class="hero-float hf1">🍽️</div>
+  <div class="hero-float hf2">🥚</div>
+  <div class="hero-float hf3">🍖</div>
+  <div class="hero-float hf4">🥞</div>
+  <div class="hero-float hf5">🌶️</div>
+  <div class="hero-content">
+    <div class="hero-badge">சைவம் &amp; அசைவம்</div>
+    <h1 class="hero-title">ஹோட்டல் பாவா</h1>
+    <p class="hero-english">Hotel Bava</p>
+    <p class="hero-tagline">Authentic South Indian Flavours · Salem</p>
+    <div class="hero-cta">
+      <a href="#menu" class="btn btn-gold">View Menu</a>
+      <a href="#branches" class="btn btn-outline">Find Us</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num" data-count="40">0</span><span class="hero-stat-label">Menu Items</span></div>
+      <div class="hero-stat"><span class="hero-stat-num" data-count="2">0</span><span class="hero-stat-label">Branches</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">9AM</span><span class="hero-stat-label">Opens Daily</span></div>
+    </div>
+  </div>
+  <!-- <div class="hero-scroll-hint">
+    <div class="scroll-mouse"></div>
+    <span class="scroll-text">Scroll</span>
+  </div> -->
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- CATERING -->
+<section class="catering-section" id="catering">
+  <svg class="catering-mandala" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="90" stroke="gold" stroke-width="1"/><circle cx="100" cy="100" r="70" stroke="gold" stroke-width=".8"/><circle cx="100" cy="100" r="50" stroke="gold" stroke-width=".6"/><circle cx="100" cy="100" r="30" stroke="gold" stroke-width=".5"/>
+    <line x1="100" y1="10" x2="100" y2="190" stroke="gold" stroke-width=".5"/><line x1="10" y1="100" x2="190" y2="100" stroke="gold" stroke-width=".5"/>
+    <line x1="27" y1="27" x2="173" y2="173" stroke="gold" stroke-width=".4"/><line x1="173" y1="27" x2="27" y2="173" stroke="gold" stroke-width=".4"/>
+    <line x1="10" y1="63" x2="190" y2="137" stroke="gold" stroke-width=".3"/><line x1="63" y1="10" x2="137" y2="190" stroke="gold" stroke-width=".3"/>
+    <line x1="190" y1="63" x2="10" y2="137" stroke="gold" stroke-width=".3"/><line x1="137" y1="10" x2="63" y2="190" stroke="gold" stroke-width=".3"/>
+  </svg>
+  <div class="catering-inner reveal">
+    <div class="catering-ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-icon">✦</div>
+      <div class="ornament-line rev"></div>
+    </div>
+    <p class="catering-label">Special Catering Service</p>
+    <h2 class="catering-title">அனைத்து வீட்டு விசேஷங்களுக்கு</h2>
+    <p class="catering-desc">ஆடரின் பெயரில் சாப்பாடு செய்து தரப்படும்</p>
+    <p class="catering-eng">We cater for all your home celebrations &amp; special occasions —<br>cooked &amp; served in your name.</p>
+    <div class="catering-chips">
+      <div class="chip">🎊 திருமணம்</div>
+      <div class="chip">🎂 பிறந்தநாள்</div>
+      <div class="chip">🙏 விசேஷம்</div>
+      <div class="chip">🎉 விழா</div>
+    </div>
+    <a href="https://wa.me/919842031940?text=Vanakkam%20Hotel%20Bava%2C%20I%20would%20like%20to%20enquire%20about%20catering." class="btn btn-gold" target="_blank" rel="noopener">Enquire Now</a>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <p class="section-label">Our Offerings</p>
+    <h2 class="section-title">உணவு வகைகள் <span>Menu</span></h2>
+    <div class="divider-line" id="menuDivider"></div>
+  </div>
+  <div class="menu-filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="parotta">Parotta</button>
+    <button class="filter-btn" data-filter="dosa">Dosa</button>
+    <button class="filter-btn" data-filter="fry">Non-Veg Items</button>
+    <button class="filter-btn" data-filter="egg">Egg</button>
+  </div>
+  <div class="menu-category" data-cat="parotta"><div class="cat-header"><div class="cat-icon">🍽️</div><div><h3 class="cat-title">புரோட்டா வகைகள்</h3><p class="cat-subtitle">Parotta Varieties</p></div></div><div class="menu-grid" id="grid-parotta"></div></div>
+  <div class="menu-category" data-cat="dosa"><div class="cat-header"><div class="cat-icon">🥞</div><div><h3 class="cat-title">தோசை வகைகள்</h3><p class="cat-subtitle">Dosa Varieties</p></div></div><div class="menu-grid" id="grid-dosa"></div></div>
+  <div class="menu-category" data-cat="fry"><div class="cat-header"><div class="cat-icon">🍖</div><div><h3 class="cat-title">Non-Veg Fry Items</h3><p class="cat-subtitle">சிறப்பு வறுவல்கள்</p></div></div><div class="menu-grid" id="grid-fry"></div></div>
+  <div class="menu-category" data-cat="egg"><div class="cat-header"><div class="cat-icon">🥚</div><div><h3 class="cat-title">முட்டை வகைகள்</h3><p class="cat-subtitle">Egg Varieties</p></div></div><div class="menu-grid" id="grid-egg"></div></div>
+</section>
+
+<!-- BRANCHES -->
+<section class="branches-section" id="branches">
+  <div class="section-header light">
+    <p class="section-label">Find Us</p>
+    <h2 class="section-title">எங்கள் கிளைகள் <span>Our Branches</span></h2>
+    <div class="divider-line" id="branchDivider"></div>
+  </div>
+  <div class="branches-grid">
+    <div class="branch-card reveal">
+      <div class="branch-badge">Branch 1</div>
+      <div class="branch-name"><span class="branch-pin">📍</span><div><h3>Arisipalayam</h3><p>Salem, Tamil Nadu</p></div></div>
+      <div class="map-container"><iframe src="https://maps.google.com/maps?q=Arisipalayam,Salem,Tamil+Nadu&z=15&output=embed" width="100%" height="230" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Arisipalayam Branch"></iframe></div>
+      <a href="https://maps.app.goo.gl/3LsP7pBTAtxdqBYA7" class="btn btn-gold map-btn" target="_blank" rel="noopener">🗺 View on Google Maps</a>
+    </div>
+    <div class="branch-card reveal delay-2">
+      <div class="branch-badge">Branch 2</div>
+      <div class="branch-name"><span class="branch-pin">📍</span><div><h3>Meyyanur Bypass</h3><p>Salem, Tamil Nadu</p></div></div>
+      <div class="map-container"><iframe src="https://maps.google.com/maps?q=Meyyanur+Bypass,Salem,Tamil+Nadu&z=15&output=embed" width="100%" height="230" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Meyyanur Bypass Branch"></iframe></div>
+      <a href="https://maps.app.goo.gl/vM4unTJ9roXUJqJcA" class="btn btn-gold map-btn" target="_blank" rel="noopener">🗺 View on Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-header">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">தொடர்பு கொள்ளுங்கள் <span>Contact Us</span></h2>
+    <div class="divider-line" id="contactDivider"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card reveal">
+      <div class="contact-icon">📞</div><h4>Call Us</h4>
+      <a href="tel:+919842031940" class="contact-phone">📞 +91 98420 31940</a>
+      <a href="tel:+919788778625" class="contact-phone">📞 +91 97887 78625</a>
+    </div>
+    <div class="contact-card reveal delay-2">
+      <div class="contact-icon">🕒</div><h4>Working Hours</h4>
+      <p class="hours-text">Monday – Saturday</p>
+      <p class="hours-time">9:00 AM – 11:00 PM</p>
+    </div>
+    <div class="contact-card reveal delay-3">
+      <div class="contact-icon">💬</div><h4>WhatsApp Order</h4>
+      <a href="https://wa.me/919842031940?text=Vanakkam%20Hotel%20Bava%2C%20I%20would%20like%20to%20place%20an%20order." class="btn btn-gold" target="_blank" rel="noopener" style="margin-top:10px;">Order on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div><p class="footer-name">ஹோட்டல் பாவா</p><p class="footer-tagline">சைவம் &amp; அசைவம் | Salem</p></div>
+    <div class="footer-links">
+      <a href="#menu">Menu</a><a href="#catering">Catering</a>
+      <a href="#branches">Branches</a><a href="#contact">Contact</a>
+    </div>
+    <p class="footer-copy">© 2026 Hotel Bava. All rights reserved.</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/919842031940?text=Vanakkam%20Hotel%20Bava%2C%20I%20would%20like%20to%20place%20an%20order." class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg" width="28" height="28"><path d="M16.003 2.667C8.638 2.667 2.667 8.638 2.667 16c0 2.336.627 4.593 1.817 6.564L2.667 29.333l6.954-1.78A13.27 13.27 0 0016.003 29.333c7.365 0 13.33-5.971 13.33-13.333 0-7.362-5.965-13.333-13.33-13.333zm0 24c-2.01 0-3.981-.527-5.714-1.522l-.41-.24-4.124 1.056 1.093-3.984-.265-.428A10.633 10.633 0 015.333 16c0-5.882 4.788-10.667 10.67-10.667 5.882 0 10.664 4.785 10.664 10.667S21.885 26.667 16.003 26.667zm5.847-7.988c-.32-.16-1.893-.933-2.186-1.04-.293-.107-.506-.16-.72.16s-.826 1.04-1.013 1.253c-.187.214-.373.24-.693.08-.32-.16-1.35-.497-2.572-1.586-.95-.848-1.59-1.895-1.776-2.215-.187-.32-.02-.493.14-.652.144-.143.32-.373.48-.56.16-.186.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.733-.986-2.373-.26-.624-.524-.54-.72-.55l-.613-.01a1.18 1.18 0 00-.853.4c-.293.32-1.12 1.093-1.12 2.666s1.147 3.094 1.307 3.307c.16.213 2.254 3.44 5.463 4.826.764.33 1.36.526 1.824.674.766.243 1.464.209 2.016.127.615-.091 1.893-.773 2.16-1.52.266-.747.266-1.387.186-1.52-.08-.134-.293-.214-.614-.374z"/></svg>
+  <span class="fab-tooltip">Order Now</span>
+</a>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+<script>
+// =============================================
+// MENU DATA
+// =============================================
+const menuData={
+  parotta:[
+    {id:'p1',ta:'புரோட்டா',en:'Parotta',veg:true,img:'Parotta-.jpg'},
+    {id:'p2',ta:'நூல் புரோட்டா',en:'Nool Parotta',veg:true,img:'Nool Parotta.jpg'},
+    {id:'p3',ta:'பன் புரோட்டா',en:'Bun Parotta',veg:true,img:'Bun Parotta.jpg'},
+    {id:'p4',ta:'இலை புரோட்டா',en:'Kizhi Parotta',veg:true,img:'Kizhi Parotta.jpg'},
+    {id:'p5',ta:'கொத்து புரோட்டா',en:'Kothu Parotta',veg:true,img:'Kothu Parotta.jpg'},
+    {id:'p6',ta:'வீச்சு புரோட்டா',en:'Veechu Parotta',veg:true,img:'veechu-parotta.jpg'},
+    {id:'p7',ta:'முட்டை வீச்சு புரோட்டா',en:'Mutta Veechu Parotta',veg:false,img:'mutta Veechu Parotta.webp'},
+    {id:'p8',ta:'சிக்கன் கொத்து புரோட்டா',en:'Chicken Kothu Parotta',veg:false,img:'Chicken Kothu Parotta.jpg'},
+    {id:'p9',ta:'மட்டன் கொத்து புரோட்டா',en:'Mutton Kothu Parotta',veg:false,img:'Mutton Kothu Parotta.jpg'},
+  ],
+  dosa:[
+    {id:'d1',ta:'தோசை',en:'Dosa',veg:true,img:'dosa.jpg'},
+    {id:'d2',ta:'பிளைன் தோசை',en:'Plain Dosa',veg:true,img:'plain-Dosa.jpg'},
+    {id:'d3',ta:'பெப்பர் ரோஸ்ட்',en:'Pepper Roast',veg:true,img:'Pepper Roast.jpg'},
+    {id:'d4',ta:'முட்டை தோசை',en:'Mutta Dosa',veg:false,img:'mutta Dosa.jpg'},
+    {id:'d5',ta:'முட்டை ரோஸ்ட்',en:'Mutta Roast',veg:false,img:'mutta roast.jpg'},
+    {id:'d6',ta:'எசன்ஸ் தோசை',en:'Essence Dosa',veg:true,img:'Essence dosa.JPG'},
+    {id:'d7',ta:'எசன்ஸ் முட்டை தோசை',en:'Essence Mutta Dosa',veg:false,img:'Essence mutta Dosa.jpg'},
+    {id:'d8',ta:'ஆனியன் ரோஸ்ட்',en:'Onion Roast',veg:true,img:'Onion Roast.jpg'},
+    {id:'d9',ta:'ஆனியன் ஊத்தாப்பம்',en:'Onion Uthappam',veg:true,img:'Onion Uthappam.jpg'},
+    {id:'d10',ta:'சிக்கன் கறி தோசை',en:'Chicken Curry Dosa',veg:false,img:'Chicken Curry Dosa.jpg'},
+    {id:'d11',ta:'மட்டன் கறி தோசை',en:'Mutton Curry Dosa',veg:false,img:'Mutton curry Dosa.jpeg'},
+    {id:'d12',ta:'போட்டி கறி தோசை',en:'Boti Curry Dosa',veg:false,img:'Boti Curry Dosa.jpg'},
+  ],
+  fry:[
+    {id:'f1',ta:'சிக்கன் ப்ரை',en:'Chicken Fry',veg:false,img:'chicken-masala-fry.jpg'},
+    {id:'f2',ta:'சிக்கன் பெப்பர் ப்ரை',en:'Chicken Pepper Fry',veg:false,img:'Chicken Pepper Fry.jpg'},
+    {id:'f3',ta:'சிக்கன் வறுவல்',en:'Chicken Varuval',veg:false,img:'Chicken-varuval.jpg'},
+    {id:'f4',ta:'காடை ப்ரை',en:'Kaadai Fry',veg:false,img:'Kaadai Fry.jpg'},
+    {id:'f5',ta:'போட்டி ப்ரை',en:'Boti Fry',veg:false,img:'boti-fry.jpg'},
+    {id:'f6',ta:'மட்டன் சாப்ஸ்',en:'Mutton Chops',veg:false,img:'Mutton-Chops.jpg'},
+    {id:'f7',ta:'மட்டன் ஈரல்',en:'Mutton Eeral',veg:false,img:'Mutton eeral.jpg'},
+    {id:'f8',ta:'மட்டன் வறுவல்',en:'Mutton Varuval',veg:false,img:'Mutton Varuval.jpg'},
+    {id:'f9',ta:'நாட்டு கோழி ப்ரை',en:'Naatu Kozhi Fry',veg:false,img:'Naatu Kozhi Fry.jpg'},
+    {id:'f10',ta:'நாட்டு கோழி வறுவல்',en:'Naatu Kozhi Varuval',veg:false,img:'Nattu-Kozhi-varuval.jpg'},
+    {id:'f11',ta:'மூளை ப்ரை',en:'Moolai Fry',veg:false,img:'moolai fry.jpg'},
+    {id:'f12',ta:'தலை கறி ப்ரை',en:'Thala Curry Fry',veg:false,img:'thala curry Fry.jpg'},
+    {id:'f13',ta:'ரத்த பொரியல்',en:'Ratha Poriyal',veg:false,img:'ratha poriyal.jpg'},
+    {id:'f14',ta:'புறா ரோஸ்ட் ப்ரை',en:'Pura Roast Fry',veg:false,img:'Pura Roast Fry.jpg'},
+  ],
+  egg:[
+    {id:'e1',ta:'ஆஃபாயில்',en:'Half Boil',veg:false,img:'Half Boil.jpg'},
+    {id:'e2',ta:'புல்பாயில்',en:'Full Boil',veg:false,img:'Full Boil.jpg'},
+    {id:'e3',ta:'ஆம்லெட்',en:'Omelette',veg:false,img:'egg-oats-omelette.jpg'},
+    {id:'e4',ta:'கலக்கி',en:'Kalakki',veg:false,img:'kalakki-.jpg'},
+    {id:'e5',ta:'முட்டை பொரியல்',en:'Mutta Poriyal',veg:false,img:'mutta poriyal.jpeg'},
+  ]
+};
+
+// CART
+let cart=[];
+try{cart=JSON.parse(localStorage.getItem('hotelbavaCart')||'[]')}catch(e){cart=[]}
+function saveCart(){try{localStorage.setItem('hotelbavaCart',JSON.stringify(cart))}catch(e){}updateCartBadge()}
+function updateCartBadge(){
+  const total=cart.reduce((s,i)=>s+i.qty,0);
+  const b=document.getElementById('cartBadge');
+  b.textContent=total;
+  b.classList.remove('bump');void b.offsetWidth;if(total>0)b.classList.add('bump');
+}
+
+// TOAST
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.innerHTML=msg;t.classList.add('show');
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+// MENU RENDER
+function getAllItems(){return Object.values(menuData).flat()}
+function renderMenus(){
+  Object.entries(menuData).forEach(([cat,items])=>{
+    const grid=document.getElementById('grid-'+cat);if(!grid)return;
+    grid.innerHTML=items.map(item=>{
+      const inCart=cart.find(c=>c.id===item.id);
+      return `<div class="menu-card">
+        <div class="card-img-wrap">
+          <img src="${item.img}" alt="${item.en}" loading="lazy" onerror="this.style.opacity='.2'">
+        </div>
+        <div class="card-body">
+          <span class="item-tamil">${item.ta}</span>
+          <span class="item-eng">${item.en}</span>
+        </div>
+        <button class="${inCart?'add-btn added':'add-btn'}" id="btn-${item.id}" onclick="addToCart('${item.id}')">
+          ${inCart?`In Cart (${inCart.qty})`:'+ Add'}
+        </button>
+      </div>`;
+    }).join('');
+  });
+}
+
+// ADD TO CART
+function addToCart(itemId){
+  const item=getAllItems().find(i=>i.id===itemId);if(!item)return;
+  const existing=cart.find(c=>c.id===itemId);
+  if(existing){
+    existing.qty+=1;
+    showToast(`${item.ta} qty updated: <span style="font-size:1.25em;font-weight:800;color:#e8b86d">${existing.qty}</span>`);
+  } else {
+    cart.push({...item,qty:1});
+    showToast(`${item.ta} added!`);
+  }
+  saveCart();
+  const btn=document.getElementById('btn-'+itemId);
+  if(btn){const u=cart.find(c=>c.id===itemId);btn.className='add-btn added';btn.textContent=`In Cart (${u.qty})`}
+}
+
+// QTY
+function changeQty(itemId,delta){
+  const item=cart.find(c=>c.id===itemId);if(!item)return;
+  item.qty+=delta;
+  if(item.qty<=0){cart=cart.filter(c=>c.id!==itemId);showToast('Item removed')}
+  saveCart();renderCart();
+  const btn=document.getElementById('btn-'+itemId);
+  if(btn){const s=cart.find(c=>c.id===itemId);if(s){btn.className='add-btn added';btn.textContent=`In Cart (${s.qty})`}else{btn.className='add-btn';btn.textContent='+ Add'}}
+}
+function removeItem(itemId){
+  cart=cart.filter(c=>c.id!==itemId);saveCart();renderCart();
+  const btn=document.getElementById('btn-'+itemId);
+  if(btn){btn.className='add-btn';btn.textContent='+ Add'}
+  showToast('Item removed');
+}
+function clearCart(){
+  cart=[];saveCart();renderCart();
+  document.querySelectorAll('.add-btn.added').forEach(b=>{b.className='add-btn';b.textContent='+ Add'});
+  showToast('Cart அழிக்கப்பட்டது!');
+}
+
+// RENDER CART
+function renderCart(){
+  const body=document.getElementById('drawerBody');
+  const footer=document.getElementById('cartFooter');
+  if(!cart.length){
+    footer.style.display='none';
+    body.innerHTML=`<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>உங்கள் cart காலியாக உள்ளது</p><p style="font-size:.82rem;margin-top:6px;color:#bbb">Your cart is empty</p></div>`;
+    return;
+  }
+  footer.style.display='block';
+  body.innerHTML=cart.map(item=>`
+    <div class="cart-item">
+      <div class="cart-item-img"><img src="${item.img}" alt="${item.en}" onerror="this.style.opacity='.2'"></div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.ta}</div>
+        <div class="cart-item-eng">${item.en}</div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
+          <span class="qty-value">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button>
+          <button class="remove-btn" onclick="removeItem('${item.id}')" title="Remove">🗑</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function buildOrderMsg(){
+  if(!cart.length)return'';
+  let msg='Vanakkam Hotel Bava! 🙏\n\nMy Order:\n';
+  cart.forEach((item,i)=>{msg+=`${i+1}. ${item.en} × ${item.qty}\n`});
+  msg+='\nPlease confirm. Thank you!';
+  return encodeURIComponent(msg);
+}
+function openCart(){renderCart();document.getElementById('cartDrawer').classList.add('open');document.getElementById('cartOverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('cartOverlay').classList.remove('open');document.body.style.overflow=''}
+
+// PARTICLES
+(function(){
+  const canvas=document.getElementById('particleCanvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,particles=[];
+  function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  class Particle{constructor(){this.reset(true)}reset(init){this.x=Math.random()*W;this.y=init?Math.random()*H:H+10;this.r=Math.random()*2+.4;this.vx=(Math.random()-.5)*.3;this.vy=-(Math.random()*.4+.1);this.alpha=Math.random()*.4+.1;this.color=Math.random()>.5?'201,147,58':'139,26,42'}update(){this.x+=this.vx;this.y+=this.vy;if(this.y<-10)this.reset(false)}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(${this.color},${this.alpha})`;ctx.fill()}}
+  for(let i=0;i<90;i++)particles.push(new Particle());
+  function loop(){ctx.clearRect(0,0,W,H);particles.forEach(p=>{p.update();p.draw()});requestAnimationFrame(loop)}
+  loop();
+})();
+
+// CUSTOM CURSOR
+(function(){
+  const dot=document.getElementById('cursorDot'),ring=document.getElementById('cursorRing');
+  if(!dot||!ring)return;
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+  (function animate(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animate)})();
+  document.querySelectorAll('a,button,.menu-card,.filter-btn,.chip').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='rgba(201,147,58,.9)'});
+    el.addEventListener('mouseleave',()=>{ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(201,147,58,.5)'});
+  });
+})();
+
+// MARQUEE
+(function(){
+  const items=['🍽️ புரோட்டா','🥞 தோசை','🥚 முட்டை','🍖 Chicken Fry','✦ Salem\'s Finest','🌶️ Authentic Taste','⭐ Veg & Non-Veg','🎊 Catering Available','✦ Two Branches','🔥 Fresh Daily'];
+  const track=document.getElementById('marqueeTrack');if(!track)return;
+  const html=items.map(t=>`<span class="marquee-item">${t}<span class="marquee-dot">◆</span></span>`).join('');
+  track.innerHTML=html+html;
+})();
+
+// COUNT UP
+function countUp(el,target,dur=1600){
+  if(isNaN(target))return;
+  let start=0,step=target/dur*16;
+  (function tick(){start=Math.min(start+step,target);el.textContent=Math.floor(start)+(target===40?'+':'');if(start<target)requestAnimationFrame(tick)})();
+}
+
+// DOM READY
+document.addEventListener('DOMContentLoaded',function(){
+  renderMenus();updateCartBadge();
+
+  document.getElementById('cartOpenBtn').addEventListener('click',openCart);
+  document.getElementById('cartClose').addEventListener('click',closeCart);
+  document.getElementById('cartOverlay').addEventListener('click',closeCart);
+  document.getElementById('orderWhatsapp').addEventListener('click',function(){window.open('https://wa.me/919842031940?text='+buildOrderMsg(),'_blank')});
+
+  const header=document.getElementById('site-header');
+  window.addEventListener('scroll',function(){
+    header.classList.toggle('scrolled',window.scrollY>60);
+    document.getElementById('back-to-top').classList.toggle('visible',window.scrollY>400);
+  },{passive:true});
+
+  const navToggle=document.getElementById('nav-toggle'),mainNav=document.getElementById('main-nav');
+  navToggle.addEventListener('click',function(){
+    const open=mainNav.classList.toggle('open');
+    const s=navToggle.querySelectorAll('span');
+    if(open){s[0].style.transform='rotate(45deg) translate(5px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(5px,-5px)'}
+    else{s[0].style.transform=s[1].style.opacity=s[2].style.transform=''}
+  });
+  mainNav.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{mainNav.classList.remove('open');navToggle.querySelectorAll('span').forEach(s=>{s.style.transform=s.style.opacity=''})}));
+
+  // Intersection Observer
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      e.target.classList.add('visible');
+      if(e.target.classList.contains('divider-line'))e.target.classList.add('expanded');
+      const nums=e.target.querySelectorAll?e.target.querySelectorAll('[data-count]'):[];
+      nums.forEach(n=>countUp(n,+n.dataset.count));
+      obs.unobserve(e.target);
+    });
+  },{threshold:.07,rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.reveal,.divider-line').forEach(el=>obs.observe(el));
+
+  // Hero count-up
+  setTimeout(()=>{document.querySelectorAll('[data-count]').forEach(n=>countUp(n,+n.dataset.count))},700);
+
+  // Filter
+  const filterBtns=document.querySelectorAll('.filter-btn'),menuCats=document.querySelectorAll('.menu-category');
+  filterBtns.forEach(btn=>btn.addEventListener('click',function(){
+    filterBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    const filter=btn.getAttribute('data-filter');
+    menuCats.forEach(cat=>{
+      if(filter==='all'||cat.getAttribute('data-cat')===filter){cat.classList.remove('hidden');cat.style.animation='fadeInUp .4s ease both'}
+      else cat.classList.add('hidden');
+    });
+  }));
+
+  // Card stagger
+  const cardObs=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.querySelectorAll('.menu-card').forEach((card,i)=>{
+        setTimeout(()=>{card.style.opacity='1';card.style.transform='translateY(0)'},i*50);
+      });
+      cardObs.unobserve(entry.target);
+    });
+  },{threshold:.04});
+  document.querySelectorAll('.menu-grid').forEach(g=>cardObs.observe(g));
+
+  document.getElementById('back-to-top').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      const target=document.querySelector(anchor.getAttribute('href'));
+      if(target){e.preventDefault();window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-header.offsetHeight,behavior:'smooth'})}
+    });
+  });
+});
+</script>
+</body>
+</html>
