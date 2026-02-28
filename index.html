@@ -83,7 +83,7 @@ a{text-decoration:none;color:inherit}
 
 /* ---- HERO ---- */
 .hero{min-height:100svh;min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:68px}
-.hero-bg{position:absolute;inset:0;z-index:0;background-image:url('hero.webp');background-size:cover;background-position:center;transform:scale(1.08);animation:heroZoom 14s ease-in-out infinite alternate}
+.hero-bg{position:absolute;inset:0;z-index:0;background-image:url('BGHero.jpeg');background-size:cover;background-position:center;transform:scale(1.08);animation:heroZoom 14s ease-in-out infinite alternate}
 @keyframes heroZoom{from{transform:scale(1.08)}to{transform:scale(1.15)}}
 .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(46,6,9,.92) 0%,rgba(107,15,26,.78) 50%,rgba(20,3,6,.88) 100%)}
 .hero-pattern{position:absolute;inset:0;z-index:2;opacity:.05;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:28px 28px}
@@ -431,7 +431,7 @@ a{text-decoration:none;color:inherit}
       <div class="chip">🙏 விசேஷம்</div>
       <div class="chip">🎉 விழா</div>
     </div>
-    <a href="https://wa.me/9197887 78625?text=Vanakkam%20Hotel%20Bava%2C%20I%20would%20like%20to%20enquire%20about%20catering." class="btn btn-gold" target="_blank" rel="noopener">Enquire Now</a>
+    <a href="https://wa.me/919788778625?text=Vanakkam%20Hotel%20Bava%2C%20I%20would%20like%20to%20enquire%20about%20catering." class="btn btn-gold" target="_blank" rel="noopener">Enquire Now</a>
   </div>
 </section>
 
@@ -487,9 +487,9 @@ a{text-decoration:none;color:inherit}
   </div>
   <div class="contact-card reveal">
   <div class="contact-icon">📞</div><h4>Call Us</h4>
-  <p style="font-family:var(--font-display);font-size:.80rem;color:var(--maroon-dark);margin-bottom:4px;letter-spacing:.05em">Branch 1 · Arisipalayam</p>
+  <p style="font-family:var(--font-display);font-size:.99rem;color:var(--maroon-dark);margin-bottom:4px;letter-spacing:.05em">Branch 1 · Arisipalayam</p>
   <a href="tel:+919842031940" class="contact-phone">📞 Ramesh · +91 98420 31940</a>
-  <p style="font-family:var(--font-display);font-size:.80rem;color:var(--maroon-dark);margin-top:10px;margin-bottom:4px;letter-spacing:.05em">Branch 2 · New Bus Stand</p>
+  <p style="font-family:var(--font-display);font-size:.99rem;color:var(--maroon-dark);margin-top:10px;margin-bottom:4px;letter-spacing:.05em">Branch 2 · New Bus Stand</p>
   <a href="tel:+919788778625" class="contact-phone">📞 Praveen · +91 97887 78625</a>
  </div>
   <!-- <div class="contact-grid">
@@ -505,16 +505,16 @@ a{text-decoration:none;color:inherit}
     </div> -->
   <div class="contact-card reveal delay-2">
   <div class="contact-icon">🕒</div><h4>Working Hours</h4>
-  <p style="font-family:var(--font-display);font-size:.80rem;color:var(--maroon-dark);margin-bottom:4px;letter-spacing:.05em">Branch 1 · Arisipalayam</p>
+  <p style="font-family:var(--font-display);font-size:.99rem;color:var(--maroon-dark);margin-bottom:4px;letter-spacing:.05em">Branch 1 · Arisipalayam</p>
   <p class="hours-text"><h5>Monday – Saturday</h5></p>
   <p class="hours-time">6:30 PM – 11:00 PM</p>
-  <p style="font-family:var(--font-display);font-size:.80rem;color:var(--maroon-dark);margin-top:12px;margin-bottom:4px;letter-spacing:.05em">Branch 2 · New Bus Stand</p>
+  <p style="font-family:var(--font-display);font-size:.99rem;color:var(--maroon-dark);margin-top:12px;margin-bottom:4px;letter-spacing:.05em">Branch 2 · New Bus Stand</p>
   <p class="hours-text"><h5>Monday – Saturday</h5></p>
   <p class="hours-time">10:00 AM – 11:00 PM</p>
   </div>
     <div class="contact-card reveal delay-3">
       <div class="contact-icon">💬</div><h4>WhatsApp Order</h4>
-      <a href="https://wa.me/9197887 78625?text=Vanakkam%20Hotel%20Bava%2C%20I%20would%20like%20to%20place%20an%20order." class="btn btn-gold" target="_blank" rel="noopener" style="margin-top:10px;">Order on WhatsApp</a>
+      <a href="https://wa.me/919788778625?text=Vanakkam%20Hotel%20Bava%2C%20I%20would%20like%20to%20place%20an%20order." class="btn btn-gold" target="_blank" rel="noopener" style="margin-top:10px;">Order on WhatsApp</a>
     </div>
   </div>
 </section>
@@ -717,9 +717,9 @@ function openWhatsappOrder(e){
   e.preventDefault();
   const msg=buildOrderMsg();
   if(msg){
-    window.open('https://wa.me/9197887 78625?text='+msg,'_blank');
+    window.open('https://wa.me/919788778625?text='+msg,'_blank');
   } else {
-    window.open('https://wa.me/9197887 78625?text='+encodeURIComponent('வணக்கம் ஹோட்டல் பாவா!! 🙏\nஆர்டர் செய்ய விரும்புகிறேன்.'),'_blank');
+    window.open('https://wa.me/919788778625?text='+encodeURIComponent('வணக்கம் ஹோட்டல் பாவா!! 🙏\nஆர்டர் செய்ய விரும்புகிறேன்.'),'_blank');
   }
 }
 function openCart(){renderCart();document.getElementById('cartDrawer').classList.add('open');document.getElementById('cartOverlay').classList.add('open');document.body.style.overflow='hidden'}
@@ -784,7 +784,7 @@ document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('cartOpenBtn').addEventListener('click',openCart);
   document.getElementById('cartClose').addEventListener('click',closeCart);
   document.getElementById('cartOverlay').addEventListener('click',closeCart);
-  document.getElementById('orderWhatsapp').addEventListener('click',function(){window.open('https://wa.me/919842031940?text='+buildOrderMsg(),'_blank')});
+  document.getElementById('orderWhatsapp').addEventListener('click',function(){window.open('https://wa.me/919788778625?text='+buildOrderMsg(),'_blank')});
 
   const header=document.getElementById('site-header');
   window.addEventListener('scroll',function(){
