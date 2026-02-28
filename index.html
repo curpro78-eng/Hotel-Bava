@@ -681,7 +681,7 @@ function renderCart(){
 function buildOrderMsg(){
   if(!cart.length)return'';
   let msg='Vanakkam Hotel Bava! 🙏\n\nMy Order:\n';
-  cart.forEach((item,i)=>{msg+=`${i+1}. ${item.en} × ${item.qty}\n`});
+  cart.forEach((item,i)=>{msg+=`${i+1}. ${item.ta} × ${item.qty}\n`});
   msg+='\nPlease confirm. Thank you!';
   return encodeURIComponent(msg);
 }
