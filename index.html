@@ -123,13 +123,47 @@ a{text-decoration:none;color:inherit}
 .scroll-text{font-family:var(--font-display);font-size:.7rem;letter-spacing:.18em;color:rgba(255,255,255,.45)}
 
 /* ---- MARQUEE ---- */
-.marquee-strip{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 50%,var(--gold) 100%);padding:13px 0;overflow:hidden;position:relative;z-index:5}
+/* .marquee-strip{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-light) 50%,var(--gold) 100%);padding:13px 0;overflow:hidden;position:relative;z-index:5}
 .marquee-track{display:flex;animation:marqueeRoll 24s linear infinite;white-space:nowrap;width:max-content}
 .marquee-track:hover{animation-play-state:paused}
 .marquee-item{font-family:var(--font-display);font-size:.88rem;font-weight:700;letter-spacing:.12em;color:var(--maroon-dark);padding:0 28px;display:inline-flex;align-items:center;gap:12px}
 .marquee-dot{color:var(--maroon);font-size:.65rem}
-@keyframes marqueeRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marqueeRoll{from{transform:translateX(0)}to{transform:translateX(-50%)}} */
+ /* ═══════════════════════════════════════════════════
+   SVG WAVE SEPARATOR
+═══════════════════════════════════════════════════ */
+.wave-sep{display:block;width:100%;height:80px;overflow:hidden;line-height:0;position:relative;z-index:5}
+.wave-sep svg{display:block;width:100%;height:100%}
+.wave-sep.down svg{fill:var(--cream)}
+.wave-sep.up svg{fill:var(--maroon)}
 
+/* ═══════════════════════════════════════════════════
+   DUAL MARQUEE (forward + reverse)
+═══════════════════════════════════════════════════ */
+.marquee-wrap{position:relative;z-index:5;overflow:hidden}
+.marquee-row{padding:12px 0;overflow:hidden;position:relative}
+.marquee-row:first-child{background:linear-gradient(135deg,var(--gold),var(--gold-light))}
+.marquee-row:last-child{background:linear-gradient(135deg,var(--maroon-dark),var(--maroon))}
+.marquee-row::before,.marquee-row::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.marquee-row::before{left:0}
+.marquee-row::after{right:0}
+.marquee-row:first-child::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.marquee-row:first-child::after{background:linear-gradient(270deg,var(--gold),transparent)}
+.marquee-row:last-child::before{background:linear-gradient(90deg,var(--maroon-dark),transparent)}
+.marquee-row:last-child::after{background:linear-gradient(270deg,var(--maroon-dark),transparent)}
+.mtrack{display:flex;width:max-content;white-space:nowrap}
+.mtrack:hover{animation-play-state:paused}
+.mtrack.fwd{animation:marqFwd 24s linear infinite}
+.mtrack.rev{animation:marqRev 20s linear infinite}
+@keyframes marqFwd{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes marqRev{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.mitem{font-family:var(--font-display);font-size:.88rem;font-weight:700;letter-spacing:.12em;padding:0 26px;display:inline-flex;align-items:center;gap:10px;transition:transform .25s}
+.mitem:hover{transform:scale(1.06)}
+.mitem.gold-row{color:var(--maroon-dark)}
+.mitem.dark-row{color:var(--gold-light)}
+.mdot-gold{color:var(--maroon);font-size:.6rem}
+.mdot-dark{color:var(--gold);font-size:.6rem}
+ 
 /* ---- CATERING ---- */
 .catering-section{background:linear-gradient(135deg,var(--maroon-deep) 0%,var(--maroon) 40%,#8b2010 100%);position:relative;overflow:hidden;padding:80px 20px;text-align:center}
 .catering-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(201,147,58,.18) 0%,transparent 55%),radial-gradient(ellipse at 85% 50%,rgba(201,147,58,.12) 0%,transparent 55%)}
@@ -402,8 +436,31 @@ a{text-decoration:none;color:inherit}
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee-strip">
+<!-- <div class="marquee-strip">
   <div class="marquee-track" id="marqueeTrack"></div>
+</div> -->
+<!-- SVG WAVE separator (hero → marquee) -->
+<div class="wave-sep down" style="background:#1a0306;margin-top:-2px">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1380,20 1440,40 L1440,80 L0,80 Z"/>
+  </svg>
+</div>
+
+<!-- DUAL MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-row">
+    <div class="mtrack fwd" id="mtrack1"></div>
+  </div>
+  <div class="marquee-row">
+    <div class="mtrack rev" id="mtrack2"></div>
+  </div>
+</div>
+
+<!-- SVG WAVE separator (marquee → catering) -->
+<div class="wave-sep" style="background:linear-gradient(135deg,#2e0609,#6b0f1a);transform:scaleY(-1)">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1380,20 1440,40 L1440,80 L0,80 Z" fill="#fdf8f0"/>
+  </svg>
 </div>
 
 <!-- CATERING -->
@@ -508,11 +565,12 @@ a{text-decoration:none;color:inherit}
   <div class="section-header">
     <span class="section-label">Get in Touch</span>
     <h2 class="section-title">தொடர்பு கொள்ளுங்கள் <span>Contact Us</span></h2>
-    <div class="divider-ornament">
+    <div class="divider-line" id="contactDivider"></div>
+    <!-- <div class="divider-ornament">
       <div class="dline" id="contDL"></div>
       <span class="diam">◆</span><span class="diam" style="animation-delay:.3s">◆</span><span class="diam" style="animation-delay:.6s">◆</span>
       <div class="dline rev" id="contDR"></div>
-    </div>
+    </div> -->
   </div>
   <div class="contact-grid">
     <div class="contact-card reveal">
@@ -798,11 +856,25 @@ function closeCart(){document.getElementById('cartDrawer').classList.remove('ope
 })();
 
 // MARQUEE
+// (function(){
+//   const items=['🍽️ புரோட்டா','🥞 தோசை','🥚 முட்டை','🍖 Chicken Fry','✦ Salem\'s Finest','🌶️ Authentic Taste','⭐ Veg & Non-Veg','🎊 Catering Available','✦ Two Branches','🔥 Fresh Daily'];
+//   const track=document.getElementById('marqueeTrack');if(!track)return;
+//   const html=items.map(t=>`<span class="marquee-item">${t}<span class="marquee-dot">◆</span></span>`).join('');
+//   track.innerHTML=html+html;
+// })();
+ /* ──────────────────────────────────────────────────
+   DUAL MARQUEE
+────────────────────────────────────────────────── */
 (function(){
-  const items=['🍽️ புரோட்டா','🥞 தோசை','🥚 முட்டை','🍖 Chicken Fry','✦ Salem\'s Finest','🌶️ Authentic Taste','⭐ Veg & Non-Veg','🎊 Catering Available','✦ Two Branches','🔥 Fresh Daily'];
-  const track=document.getElementById('marqueeTrack');if(!track)return;
-  const html=items.map(t=>`<span class="marquee-item">${t}<span class="marquee-dot">◆</span></span>`).join('');
-  track.innerHTML=html+html;
+  const row1=['🍽️ புரோட்டா','🥞 தோசை','🥚 முட்டை','🍖 Chicken Fry','✦ Salem\'s Finest','🌶️ Authentic Taste','⭐ Veg & Non-Veg','🎊 Catering Available','✦ Two Branches','🔥 Fresh Daily'];
+  const row2=['💛 Salem\'s Favourite','✦ Since Years','🏆 Best Restaurant','🍽️ அருமையான சுவை','🌟 Try Today','✦ Come Taste','🎉 Special Occasions','🥘 Home Catering','💫 Visit Us'];
+  function fill(id,items,gold){
+    const t=document.getElementById(id);if(!t)return;
+    const cls=gold?'gold-row':'dark-row';const dot=gold?'mdot-gold':'mdot-dark';
+    const html=items.map(i=>`<span class="mitem ${cls}">${i}<span class="${dot}">◆</span></span>`).join('');
+    t.innerHTML=html+html;
+  }
+  fill('mtrack1',row1,true);fill('mtrack2',row2,false);
 })();
 
 // COUNT UP
